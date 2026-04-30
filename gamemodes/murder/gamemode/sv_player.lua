@@ -22,6 +22,12 @@ function GM:PlayerInitialSpawn( ply )
 
 	local vec = Vector(0.5, 0.5, 0.5)
 	ply:SetPlayerColor(vec)
+
+	// Si la ConVar steam names est active, on définit le nom Steam dès la connexion
+	// pour éviter d'afficher "Bystander" en spectate avant le 1er round.
+	if self.UseSteamNames && self.UseSteamNames:GetBool() then
+		ply:GenerateBystanderName()
+	end
 end
 
 function GM:PlayerSpawn( ply )
@@ -238,7 +244,7 @@ function GM:PlayerDeath(ply, Inflictor, attacker )
 				if self.ShowBystanderTKs:GetBool() then
 					local col = attacker:GetPlayerColor()
 					local msgs = Translator:AdvVarTranslate(translate.killedTeamKill, {
-						player = {text = attacker:Nick() .. ", " .. attacker:GetBystanderName(), color = Color(col.x * 255, col.y * 255, col.z * 255)}
+						player = {text = GAMEMODE_FormatChatName(attacker), color = Color(col.x * 255, col.y * 255, col.z * 255)}
 					})
 					local ct = ChatText()
 					ct:AddParts(msgs)
@@ -251,7 +257,7 @@ function GM:PlayerDeath(ply, Inflictor, attacker )
 		if attacker != ply && IsValid(attacker) && attacker:IsPlayer() then
 			local col = attacker:GetPlayerColor()
 			local msgs = Translator:AdvVarTranslate(translate.killedMurderer, {
-				player = {text = attacker:Nick() .. ", " .. attacker:GetBystanderName(), color = Color(col.x * 255, col.y * 255, col.z * 255)}
+				player = {text = GAMEMODE_FormatChatName(attacker), color = Color(col.x * 255, col.y * 255, col.z * 255)}
 			})
 			local ct = ChatText()
 			ct:AddParts(msgs)

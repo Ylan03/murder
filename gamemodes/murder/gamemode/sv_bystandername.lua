@@ -110,6 +110,14 @@ function GM:LoadBystanderNames()
 end
 
 function EntityMeta:GenerateBystanderName()
+	// Si la ConVar mu_use_steam_names est activée et qu'on traite un joueur, on utilise son nom Steam
+	if self:IsPlayer() && GAMEMODE.UseSteamNames && GAMEMODE.UseSteamNames:GetBool() then
+		local name = self:Nick()
+		self:SetNWString("bystanderName", name)
+		self.BystanderName = name
+		return
+	end
+
 	local words = math.max(1, GAMEMODE.BystanderWords:GetInt())
 	local name = GAMEMODE:GenerateName(words, self.ModelSex or "male")
 	self:SetNWString("bystanderName", name)
@@ -127,6 +135,16 @@ function EntityMeta:GetBystanderName()
 		return "Bystander" 
 	end
 	return name
+end
+
+// Helper : formatte "Nick, BystanderName" sauf si la ConVar mu_use_steam_names est ON
+// (dans ce cas Nick == BystanderName, donc on ne renvoie que le Nick pour éviter le doublon)
+function GAMEMODE_FormatChatName(ply)
+	if !IsValid(ply) then return "?" end
+	if GAMEMODE.UseSteamNames && GAMEMODE.UseSteamNames:GetBool() then
+		return ply:Nick()
+	end
+	return ply:Nick() .. ", " .. ply:GetBystanderName()
 end
 
 concommand.Add("mu_print_players", function (admin, com, args)
