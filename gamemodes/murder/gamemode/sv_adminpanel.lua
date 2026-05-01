@@ -20,6 +20,7 @@ net.Receive("mu_adminpanel_details", function (length, ply)
 		t.murderer = ply:GetMurderer()
 		t.murdererChance = ((ply.MurdererChance or 1) ^ tab.weightMul) / total
 		t.murdererWeight = ply.MurdererChance or 1
+		t.hasMagnum = ply:HasWeapon("weapon_mu_magnum")
 		tab.players[ply:EntIndex()] = t
 	end
 

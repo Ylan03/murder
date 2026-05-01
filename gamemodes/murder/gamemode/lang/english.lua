@@ -109,6 +109,7 @@ pt.murdererFogSub = "Kill someone to hide"
 pt.pressEToDisguiseFor1Loot = "[E] Disguise as for 1 loot"
 
 pt.playerStatusDead = "Dead"
+pt.scoreboardArmed = "[ARMED]"
 
 // ttt_traitor_button compatibility for TTT maps
 pt.ttt_tbut_single  = "Single use"

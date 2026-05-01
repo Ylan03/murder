@@ -74,6 +74,20 @@ local function addPlayerItem(self, mlist, ply, pteam)
 			draw.DrawText(status, "ScoreboardPlayer", w * 0.64 + 1, 9, color_black, 0)
 			draw.DrawText(status, "ScoreboardPlayer", w * 0.64, 8, statusColor, 0)
 
+			// Indicateur "armé" : si le joueur a le magnum, on ajoute un marqueur à droite du status
+			if playerData && playerData.players[ply:EntIndex()] && playerData.players[ply:EntIndex()].hasMagnum then
+				surface.SetFont("ScoreboardPlayer")
+				local sw, _ = surface.GetTextSize(status)
+				// fallback robuste : le translator renvoie "<key>" si la clé n'existe pas
+				local armedText = translate.scoreboardArmed
+				if !armedText || armedText:sub(1, 1) == "<" then
+					armedText = "[ARMED]"
+				end
+				local armedColor = Color(255, 200, 40)
+				draw.DrawText(armedText, "ScoreboardPlayer", w * 0.64 + sw + 9, 9, color_black, 0)
+				draw.DrawText(armedText, "ScoreboardPlayer", w * 0.64 + sw + 8, 8, armedColor, 0)
+			end
+
 			local chance = "?"
 			if playerData && playerData.players[ply:EntIndex()] then
 				chance = math.Round(playerData.players[ply:EntIndex()].murdererChance * 100) .. "%"
