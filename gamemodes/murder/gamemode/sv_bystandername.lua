@@ -109,9 +109,9 @@ function GM:LoadBystanderNames()
 	end
 end
 
+-- [HYLTARIA] Le nom de bystander est le vrai pseudo du joueur (plus de nom aleatoire)
 function EntityMeta:GenerateBystanderName()
-	local words = math.max(1, GAMEMODE.BystanderWords:GetInt())
-	local name = GAMEMODE:GenerateName(words, self.ModelSex or "male")
+	local name = self:GetName()
 	self:SetNWString("bystanderName", name)
 	self.BystanderName = name
 end

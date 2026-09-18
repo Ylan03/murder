@@ -168,7 +168,7 @@ function GM:EndTheRound(reason, murderer)
 		if murderer then
 			local col = murderer:GetPlayerColor()
 			local msgs = Translator:AdvVarTranslate(translate.murdererDisconnectKnown, {
-				murderer = {text = murderer:Nick() .. ", " .. murderer:GetBystanderName(), color = Color(col.x * 255, col.y * 255, col.z * 255)}
+				murderer = {text = murderer:GetBystanderName(), color = Color(col.x * 255, col.y * 255, col.z * 255)}
 			})
 			local ct = ChatText(msgs)
 			ct:SendAll()
@@ -182,7 +182,7 @@ function GM:EndTheRound(reason, murderer)
 	elseif reason == 2 then
 		local col = murderer:GetPlayerColor()
 		local msgs = Translator:AdvVarTranslate(translate.winBystandersMurdererWas, {
-			murderer = {text = murderer:Nick() .. ", " .. murderer:GetBystanderName(), color = Color(col.x * 255, col.y * 255, col.z * 255)}
+			murderer = {text = murderer:GetBystanderName(), color = Color(col.x * 255, col.y * 255, col.z * 255)}
 		})
 		local ct = ChatText()
 		ct:Add(translate.winBystanders, Color(20, 120, 255))
@@ -191,7 +191,7 @@ function GM:EndTheRound(reason, murderer)
 	elseif reason == 1 then
 		local col = murderer:GetPlayerColor()
 		local msgs = Translator:AdvVarTranslate(translate.winMurdererMurdererWas, {
-			murderer = {text = murderer:Nick() .. ", " .. murderer:GetBystanderName(), color = Color(col.x * 255, col.y * 255, col.z * 255)}
+			murderer = {text = murderer:GetBystanderName(), color = Color(col.x * 255, col.y * 255, col.z * 255)}
 		})
 		local ct = ChatText()
 		ct:Add(translate.winMurderer, Color(190, 20, 20))

@@ -192,7 +192,7 @@ function GM:PlayerPickupLoot(ply, ent)
 	ply.LootCollected = ply.LootCollected + 1
 
 	if !ply:GetMurderer() then
-		if ply.LootCollected == 5 then
+		if ply.LootCollected == 3 then -- [HYLTARIA] premier Magnum a 3 indices (au lieu de 5)
 			giveMagnum(ply)
 		end
 		if ply.LootCollected % 15 == 0 then
